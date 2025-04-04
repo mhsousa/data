@@ -3,6 +3,14 @@ import pandas as pd
 import xlrd
 from io import BytesIO
 import time
+import chardet  # Para detectar a codificação do arquivo
+
+def detect_encoding(uploaded_file):
+    # Lê uma amostra do arquivo para detectar a codificação
+    rawdata = uploaded_file.read(10000)
+    uploaded_file.seek(0)  # Volta ao início do arquivo
+    result = chardet.detect(rawdata)
+    return result['encoding']
 
 def main():
     st.title("Verificar dados DataImesc")
@@ -47,10 +55,12 @@ def main():
             return True
 
 
-    uploaded_file = st.file_uploader("Carregue seu arquivo Excel", type=['csv'])
+    uploaded_file = st.file_uploader("Carregue seu arquivo Excel", type=['csv','txt'])
+   
     button=st.button("Verificar")
     if button and uploaded_file is not None:
-        excel_data = pd.read_csv(uploaded_file)
+        encoding = detect_encoding(uploaded_file)
+        excel_data = pd.read_csv(uploaded_file, encoding=encoding)
             
             
         if(button):
