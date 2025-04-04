@@ -60,7 +60,7 @@ def main():
     button=st.button("Verificar")
     if button and uploaded_file is not None:
         encoding = detect_encoding(uploaded_file)
-        excel_data = pd.read_csv(uploaded_file, encoding=encoding)
+        excel_data = pd.read_csv(uploaded_file, delimiter=';',    encoding=encoding)
             
             
         if(button):
