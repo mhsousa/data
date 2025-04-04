@@ -47,10 +47,10 @@ def main():
             return True
 
 
-    uploaded_file = st.file_uploader("Carregue seu arquivo Excel", type=['xlsx', 'xls'])
+    uploaded_file = st.file_uploader("Carregue seu arquivo Excel", type=['csv'])
     button=st.button("Verificar")
     if button and uploaded_file is not None:
-        excel_data = pd.read_excel(pd.ExcelFile(uploaded_file))
+        excel_data = pd.read_csv(pd.ExcelFile(uploaded_file))
             
             
         if(button):
